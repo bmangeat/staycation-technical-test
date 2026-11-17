@@ -1,0 +1,11 @@
+# Code
+.idea/
+node_modules/
+venv/
+__pycache__/
+dist
+coverage
+.env
+*.log
+.DS_Store
+**/.DS_Store

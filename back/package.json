@@ -1,0 +1,42 @@
+{
+  "name": "staycation-technical-test",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.34.8",
+  "engines": {
+    "node": ">=22.13"
+  },
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=.env ./main.ts",
+    "build": "tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "start": "node dist/main.js",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "standard": "standard --fix"
+  },
+  "dependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/pg": "^8.23.1",
+    "cors": "^2.8.5",
+    "eslint": "^10.13.0",
+    "eslint-config-prettier": "^10.1.8",
+    "express": "^5.3.0",
+    "helmet": "^8.3.0",
+    "pg": "^8.23.0",
+    "pino": "^10.4.0",
+    "pino-http": "^11.0.0",
+    "prettier": "^3.9.10",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.6",
+    "@types/node": "^26.6.6",
+    "standard": "^17.1.2",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2"
+  }
+}
