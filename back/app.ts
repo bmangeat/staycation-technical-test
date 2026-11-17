@@ -5,18 +5,25 @@ import cors from 'cors'
 import helmet from 'helmet';
 import { pinoHttp } from 'pino-http';
 import { type Logger } from 'pino';
-import { UsersService } from './services/user.service';
+import { UserService } from './services/user.service';
 import { createUsersRouter } from './routes/user.route';
-import { UsersRepository } from './repositories/user.repository';
+import { UserRepository } from './repositories/user.repository';
+import { BookingService } from './services/booking.service';
+import { BookingRepository } from './repositories/booking.repository';
+import { createBookingRouter } from './routes/booking.route';
 
 const REQUEST_ID_PATTERN = /^[\w.-]{1,128}$/;
 
 export function createApp(logger: Logger): Express {
   const app = express()
- app.use(express.json());
+  app.use(express.json());
 
-  const usersService = new UsersService(new UsersRepository());
-  app.use('/users', createUsersRouter(usersService));
+  // routing
+  const userService = new UserService(new UserRepository());
+  app.use('/users', createUsersRouter(userService));
+  const bookingService = new BookingService(new BookingRepository());
+  app.use('/bookings', createBookingRouter(bookingService));
+
   app.use(pinoHttp(
     {
       logger,

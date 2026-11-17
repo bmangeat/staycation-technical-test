@@ -1,8 +1,8 @@
 import { userParamsSchema } from '@/schemas/user.schema';
-import type { UsersService } from '@/services/user.service';
+import type { UserService } from '@/services/user.service';
 import { Router } from 'express';
 
-export const createUsersRouter = (usersService: UsersService): Router => {
+export const createUsersRouter = (usersService: UserService): Router => {
     const router = Router();
 
     router.get('/:id', async (req, res, next) => {
