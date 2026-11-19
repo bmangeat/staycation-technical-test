@@ -21,6 +21,8 @@ export function createApp(logger: Logger): Express {
   const app = express()
   app.use(express.json());
 
+  app.use(helmet())
+  app.use(cors())
   // routing
   const userService = new UserService(new UserRepository());
   app.use('/users', createUsersRouter(userService));
@@ -49,8 +51,6 @@ export function createApp(logger: Logger): Express {
   ))
   // middlewares
   app.use(createErrorHandler(logger));
-  app.use(helmet())
-  app.use(cors())
   return app;
 }
 
