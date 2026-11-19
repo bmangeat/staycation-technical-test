@@ -1,9 +1,12 @@
 export interface GetHotelsResponse {
-    rows: HotelRow[];
-    count: number;
+    data: HotelRow[],
+    total: number,
+    page: number,
+    size: number,
+    totalPages: number
 }
 
-interface HotelRow {
+export interface HotelRow {
     id: number;
     name: string;
     stars: number;

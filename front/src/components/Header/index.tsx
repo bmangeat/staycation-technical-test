@@ -3,26 +3,16 @@ import React, { useEffect, useState } from 'react'
 import 'styles/header.scss'
 
 import StaycationLogo from './StaycationLogo'
-import { GetUserResponse } from 'types/user'
+import { useUser } from 'hooks/useUser'
 
 const Header = () => {
-  const [user, setUser] = useState<GetUserResponse | undefined>(undefined)
-
-  useEffect(() => {
-    fetch('http://localhost:9000/users/1')
-      .then(async res => {
-        const result = await res.json()
-        setUser(result)
-      })
-      .catch(e => console.warn('Error: ', e))
-  }, [])
-
+  const { data, isLoading, isError } = useUser()
   return (
     <div className='header'>
       <StaycationLogo />
-      {user && (
+      {data && (
         <div className='header__user'>
-                    Welcome, {user.firstName}!
+                    Welcome, {data.firstName}!
         </div>
       )}
     </div>

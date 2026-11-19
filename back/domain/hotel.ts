@@ -17,7 +17,7 @@ export interface Hotel {
 }
 
 export interface HotelWithStats extends Hotel {
-    stats: HotelStats;
+    stats?: HotelStats;
 }
 
 export interface HotelStats {
@@ -36,6 +36,9 @@ export const toHotel = (row: DbHotelRow): Hotel => {
 }
 
 export const toHotelWithStats = (row: HotelWithStatsRow): HotelWithStats => {
+    if (!row.review_count || row.review_count === 0) {
+        return toHotel(row);
+    }
     return {
         ...toHotel(row),
         stats: {
