@@ -6,6 +6,7 @@ HOST: z.string().min(1).default('127.0.0.1'),
   PORT: z.coerce.number().int().min(1).max(65_535).default(3000),
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   DB_USER: z.string().min(1),
+  DB_NAME: z.string().min(1),
   DB_PASSWORD: z.string().min(12),
   DB_HOST: z.string().min(1),
   DB_PORT: z.coerce.number().int().min(1).max(65_535).default(3000),
@@ -18,7 +19,8 @@ export interface Env {
   dbHost: string;
   dbPort: number;
   dbUser: string;
-  dbPassword: string
+  dbPassword: string;
+  dbName: string;
 }
 
 export function loadEnv(source: NodeJS.ProcessEnv = process.env): Env {
@@ -35,5 +37,6 @@ export function loadEnv(source: NodeJS.ProcessEnv = process.env): Env {
     dbUser: env.DB_USER,
     dbPort: env.DB_PORT,
     dbHost: env.DB_HOST,
+    dbName: env.DB_NAME,
   };
 }

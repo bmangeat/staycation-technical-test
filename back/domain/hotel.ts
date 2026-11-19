@@ -1,10 +1,12 @@
-export interface HotelRow {
+export interface DbHotelRow {
     id: number;
     name: string;
     stars: number;
     preview: string;
     picture_id: string;
 }
+
+export interface HotelWithStatsRow extends DbHotelRow { average_score: number | null, review_count: number }
 
 export interface Hotel {
     id: number;
@@ -14,13 +16,31 @@ export interface Hotel {
     pictureId: string;
 }
 
-export const toHotel = (row: HotelRow): Hotel => {
-    const { id, name, stars, preview } = row;
+export interface HotelWithStats extends Hotel {
+    stats: HotelStats;
+}
+
+export interface HotelStats {
+    averageScore: number | null;
+    reviewCount: number
+}
+
+export const toHotel = (row: DbHotelRow): Hotel => {
     return {
-        id: row["id"],
-        name: row["name"],
-        stars: row["stars"],
-        preview: row["preview"],
-        pictureId: row["picture_id"]
+        id: row.id,
+        name: row.name,
+        stars: row.stars,
+        preview: row.preview,
+        pictureId: row.picture_id
+    }
+}
+
+export const toHotelWithStats = (row: HotelWithStatsRow): HotelWithStats => {
+    return {
+        ...toHotel(row),
+        stats: {
+            averageScore: row.average_score,
+            reviewCount: row.review_count,
+        }
     }
 }

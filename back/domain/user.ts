@@ -3,14 +3,14 @@ export interface User {
     firstName: string;
 }
 
-export interface UserRow {
+export interface DbUserRow {
     id: number;
     first_name: string;
 }
 
-export const toUser = (userRow: UserRow): User => {
+export const toUser = (userRow: DbUserRow): User => {
     return {
-        id: userRow["id"],
-        firstName: userRow["first_name"],
+        id: userRow.id,
+        firstName: userRow.first_name,
     }
 }

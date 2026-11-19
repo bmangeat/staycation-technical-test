@@ -1,34 +1,32 @@
-import { toHotel, type Hotel, type HotelRow } from "@/domain/hotel";
-import DB from '../db'
+import { toHotelWithStats, type HotelWithStats, type HotelWithStatsRow } from "@/domain/hotel";
+import DB from '@/db'
 import type { Pagination } from "@/domain/pagination";
 
 export class HotelsRepository {
-    async findOne(hotelId: number): Promise<Hotel | undefined> {
-        const data = await DB.query<HotelRow>(
-            "SELECT * FROM hotels WHERE id=$1::int",
-            [hotelId]
-        )
-        const row = data.rows[0];
-        return !row ? undefined : toHotel(row);
-    }
-
-    async findAll(options?: Pagination): Promise<{ rows: Hotel[], count: number }> {
+    async findAllWithStats(options?: Pagination): Promise<{ rows: HotelWithStats[], count: number }> {
         const offset = options?.offset ?? 0;
         const limit = options?.limit ?? 20;
-        // Potential improvements : ordering
         const [data, total] = await Promise.all([
-            DB.query<HotelRow>(
-                "SELECT * FROM hotels ORDER BY id ASC LIMIT $1 OFFSET $2",
+            DB.query<HotelWithStatsRow>(
+                `
+                SELECT 
+                    h.*, 
+                    COUNT(r.id)::int as review_count,
+                    ROUND(AVG(r.score::numeric), 1)::float as average_score
+                FROM hotels h
+                left join reviews r on r.hotel_id = h.id
+                group by h.id
+                order by h.id ASC 
+                LIMIT $1 OFFSET $2`,
                 [limit, offset]
             ),
-            DB.query(
-                "SELECT COUNT (*) from hotels"
+            DB.query<{ count: number }>(
+                "SELECT COUNT(id) FROM hotels"
             )
         ])
-        const rows: HotelRow[] = data.rows;
         return {
-            rows: rows.length > 0 ? rows.map(r => toHotel(r)) : [],
-            count: Number(total.rows[0].count) ?? 0
+            rows: data.rows.map(r => toHotelWithStats(r)),
+            count: total.rows[0]?.count ?? 0
         }
     }
 }

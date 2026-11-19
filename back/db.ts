@@ -1,12 +1,13 @@
-import { Client } from 'pg'
+import { Pool } from 'pg'
+import { loadEnv } from './config/env'
 
-const client = new Client({
-  user: 'staycation',
-  host: 'localhost',
-  database: 'staycation',
-  password: 'password',
-  port: 5432
+const env = loadEnv();
+const pool = new Pool({
+  user: env.dbUser,
+  host: env.dbHost,
+  database: env.dbName,
+  password: env.dbPassword,
+  port: env.dbPort
 })
-await client.connect()
 
-export default client
+export default pool
