@@ -12,8 +12,8 @@ export interface HotelRow {
     stars: number;
     preview: string;
     pictureId: string;
-    price: Price | null;
-    stats: HotelStats;
+    price?: Price;
+    stats?: HotelStats;
 }
 
 interface Price {

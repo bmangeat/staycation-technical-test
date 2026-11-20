@@ -1,24 +1,42 @@
 import HotelCard from 'components/HotelCard'
 import { useHotels } from 'hooks/useHotels'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 
-const HotelList = () => {
+const HotelPage = () => {
     const [page, setPage] = useState(1)
-    const { data, isLoading, isError, error } = useHotels({ page })
+    const { data, isLoading, isError, isFetching, error } = useHotels({ page })
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, behavior: 'smooth' })
+    }, [page])
 
     if (isLoading) return <>Loading</>
-    if (isError || !data) return <p>ERROR</p>
-    console.log(data.data);
+    if (isError || !data) return <>{error}</>
     return (
-        <>
-            <div className="wall">
-                {data?.data?.map(hotel => <HotelCard key={hotel.id} hotel={hotel} />)}
-            </div>
-            <button disabled={page === 1} onClick={() => setPage(p => p - 1)}>Précédent</button>
-            <button disabled={page >= data.total} onClick={() => setPage(p => p + 1)}>Suivant</button>
-        </>
+        <main className="container">
+            <section className="grid">
+                {data.hotels.map(hotel => <HotelCard key={hotel.id} hotel={hotel} />)}
+            </section>
+            <nav className="pagination">
+                <button
+                    className="pagination__button"
+                    disabled={page <= 1 || isFetching}
+                    onClick={() => setPage(p => p - 1)}>
+                    Précédent
+                </button>
+                <span className="pagination__info">
+                    Page {page} / {data.totalPages}
+                </span>
+                <button
+                    className="pagination__button"
+                    disabled={page >= data.totalPages || isFetching}
+                    onClick={() => setPage(p => p + 1)}>
+                    Suivant
+                </button>
+            </nav>
+        </main>
     )
 }
 
-export default HotelList
+export default HotelPage

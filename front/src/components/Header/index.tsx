@@ -12,7 +12,8 @@ const Header = () => {
       <StaycationLogo />
       {data && (
         <div className='header__user'>
-                    Welcome, {data.firstName}!
+          <p>Welcome, {data.firstName}!</p>
+                    
         </div>
       )}
     </div>

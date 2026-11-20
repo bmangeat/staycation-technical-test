@@ -18,7 +18,12 @@ export function useHotels({ page = 1, size = 20 }: Pagination) {
         () => fetchHotels({page, size}),
         {
             keepPreviousData: true,
-            staleTime: 60 * 1000
-        }
+            staleTime: 60 * 1000,
+            select: (res) => ({
+                hotels: res.data,
+                total: res.total,
+                totalPages: res.totalPages,
+            })
+        },
     )
 }

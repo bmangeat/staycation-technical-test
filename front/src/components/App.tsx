@@ -1,13 +1,15 @@
 import React from 'react';
 
 import Header from './Header'
-import HotelList from './HotelList';
+import HotelPage from './HotelList';
+import 'styles/app.scss'
+
 
 const App = () => (
   <div className='app'>
     <Header />
     <div className='app__body'>
-      <HotelList />
+      <HotelPage />
     </div>
   </div>
 )
