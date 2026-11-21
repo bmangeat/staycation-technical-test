@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto';
 
-import express, { type Express } from 'express'
-import cors from 'cors'
+import express, { type Express } from 'express';
+import cors from 'cors';
 import helmet from 'helmet';
 import { pinoHttp } from 'pino-http';
 import { type Logger } from 'pino';
@@ -14,15 +14,26 @@ import { createHotelRouter } from './routes/hotel.route';
 import { OpeningRepository } from './repositories/opening.repository';
 import { SaleDatesRepository } from './repositories/sale-dates.repository';
 import { createErrorHandler } from './middlewares/error-handler';
+import rateLimit from 'express-rate-limit';
 
 const REQUEST_ID_PATTERN = /^[\w.-]{1,128}$/;
 
 export function createApp(logger: Logger): Express {
-  const app = express()
+  const app = express();
   app.use(express.json());
 
-  app.use(helmet())
-  app.use(cors())
+  app.use(helmet());
+  app.use(cors());
+
+  const limiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    limit: 100,
+    standardHeaders: 'draft-8',
+    legacyHeaders: false,
+    ipv6Subnet: 64,
+  });
+  app.use(limiter);
+
   // routing
   const userService = new UserService(new UserRepository());
   app.use('/users', createUsersRouter(userService));
@@ -35,8 +46,8 @@ export function createApp(logger: Logger): Express {
   app.use('/hotels', createHotelRouter(hotelService));
 
   // logger
-  app.use(pinoHttp(
-    {
+  app.use(
+    pinoHttp({
       logger,
       genReqId: (req, res) => {
         const incoming = req.headers['x-request-id'];
@@ -47,10 +58,9 @@ export function createApp(logger: Logger): Express {
         res.setHeader('x-request-id', id);
         return id;
       },
-    }
-  ))
-  // middlewares
+    }),
+  );
+
   app.use(createErrorHandler(logger));
   return app;
 }
-
