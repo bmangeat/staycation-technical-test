@@ -13,6 +13,7 @@ concurrency:
   cancel-in-progress: true
 env:
   NODE_OPTIONS: "--no-deprecation"
+  DISABLE_ESLINT_PLUGIN: "true"
 
 jobs:
   quality:
@@ -38,5 +39,4 @@ jobs:
       - run: cd front && pnpm install --frozen-lockfile
       - run: cd front && pnpm format
       - run: cd front && pnpm lint
-      - run: cd front && pnpm typecheck
-      
+      - run: cd front && pnpm build
