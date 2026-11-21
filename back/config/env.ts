@@ -2,7 +2,7 @@ import { z } from 'zod';
 import { formatZodError } from '@/lib/zod';
 
 const envSchema = z.object({
-HOST: z.string().min(1).default('127.0.0.1'),
+  HOST: z.string().min(1).default('127.0.0.1'),
   PORT: z.coerce.number().int().min(1).max(65_535).default(3000),
   NODE_ENV: z.enum(['development', 'test', 'production']).default('development'),
   DB_USER: z.string().min(1),

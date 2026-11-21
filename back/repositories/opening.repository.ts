@@ -1,13 +1,13 @@
-import DB from '@/db'
-import type { BestPriceOpening, BestPriceOpeningRow } from "@/domain/opening";
+import DB from '@/db';
+import type { BestPriceOpening, BestPriceOpeningRow } from '@/domain/opening';
 
 export class OpeningRepository {
-    async findLowestOpeningByHotelIds(ids: number[]): Promise<Map<number, BestPriceOpening>> {
-        if (ids.length === 0) {
-            return new Map();
-        }
-        const data = await DB.query<BestPriceOpeningRow>(
-            `
+  async findLowestOpeningByHotelIds(ids: number[]): Promise<Map<number, BestPriceOpening>> {
+    if (ids.length === 0) {
+      return new Map();
+    }
+    const data = await DB.query<BestPriceOpeningRow>(
+      `
             WITH opening_stock as (
                 SELECT 
                     count(b.id) as booking_number, 
@@ -36,16 +36,19 @@ export class OpeningRepository {
                 sd.end_date desc, 
                 o.discount_price asc, 
                 o.price desc
-            `, [ids],
-        )
-        const rows = data.rows;
-        return new Map<number, BestPriceOpening>(rows.map(r => [
-            r.hotel_id,
-            {
-                price: r.price,
-                saleId: r.sale_id,
-                discountPrice: r.discount_price
-            }
-        ]))
-    }
+            `,
+      [ids],
+    );
+    const rows = data.rows;
+    return new Map<number, BestPriceOpening>(
+      rows.map((r) => [
+        r.hotel_id,
+        {
+          price: r.price,
+          saleId: r.sale_id,
+          discountPrice: r.discount_price,
+        },
+      ]),
+    );
+  }
 }

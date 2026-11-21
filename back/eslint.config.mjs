@@ -1,6 +1,6 @@
-import eslint from '@eslint/js';
-import prettier from 'eslint-config-prettier';
-import tseslint from 'typescript-eslint';
+import eslint from '@eslint/js'
+import prettier from 'eslint-config-prettier'
+import tseslint from 'typescript-eslint'
 
 export default tseslint.config(
   { ignores: ['dist', 'coverage', 'node_modules'] },
@@ -11,17 +11,17 @@ export default tseslint.config(
     languageOptions: {
       parserOptions: {
         projectService: true,
-        tsconfigRootDir: import.meta.dirname,
-      },
+        tsconfigRootDir: import.meta.dirname
+      }
     },
     rules: {
       '@typescript-eslint/consistent-type-imports': 'error',
-      '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }],
-    },
+      '@typescript-eslint/restrict-template-expressions': ['error', { allowNumber: true }]
+    }
   },
   {
     files: ['**/*.mjs'],
-    extends: [tseslint.configs.disableTypeChecked],
+    extends: [tseslint.configs.disableTypeChecked]
   },
-  prettier,
-);
+  prettier
+)

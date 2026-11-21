@@ -1,5 +1,5 @@
-import { Pool } from 'pg'
-import { loadEnv } from './config/env'
+import { Pool } from 'pg';
+import { loadEnv } from './config/env';
 
 const env = loadEnv();
 const pool = new Pool({
@@ -7,7 +7,7 @@ const pool = new Pool({
   host: env.dbHost,
   database: env.dbName,
   password: env.dbPassword,
-  port: env.dbPort
-})
+  port: env.dbPort,
+});
 
-export default pool
+export default pool;
