@@ -1,4 +1,4 @@
 export interface GetUserResponse {
-    id: number;
-    firstName: string;
+  id: number;
+  firstName: string;
 }

@@ -1,23 +1,24 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react';
 
-import 'styles/header.scss'
+import 'styles/header.scss';
 
-import StaycationLogo from './StaycationLogo'
-import { useUser } from 'hooks/useUser'
+import StaycationLogo from './StaycationLogo';
+import { useUser } from 'hooks/useUser';
 
 const Header = () => {
-  const { data, isLoading, isError } = useUser()
+  const { data, isLoading } = useUser();
   return (
-    <div className='header'>
+    <div className="header">
       <StaycationLogo />
-      {data && (
-        <div className='header__user'>
-          <p>Welcome, {data.firstName}!</p>
-                    
-        </div>
-      )}
+      <div className="header__user">
+        {isLoading ? (
+          <div className="skeleton__text" />
+        ) : (
+          <p>Welcome, {data?.firstName ?? 'Stranger'} !</p>
+        )}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

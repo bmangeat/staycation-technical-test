@@ -1,15 +1,15 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
-import { QueryClient, QueryClientProvider } from 'react-query'
+import ReactDOM from 'react-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 
-import 'styles/index.scss'
-import App from './components/App'
+import 'styles/index.scss';
+import App from './components/App';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
     <App />
   </QueryClientProvider>,
-  document.getElementById('root')
-)
+  document.getElementById('root'),
+);
