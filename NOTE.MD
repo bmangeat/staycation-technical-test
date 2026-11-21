@@ -49,8 +49,12 @@ Replaced the deprecated `node-sass` with `sass`, and switched to pnpm for consis
 ### A few extras
 - Skeleton loaders on the hotel list and header while data is loading
 - Pagination with auto-scroll to top on page change
-- Grey styling on fallback prices (question 8)
+- Grey styling on fallback prices (question 8) — see note below
 - "No availability" state on hotel cards with no openings
+- Set in grey scale and display not available label if the hotel has no price. Don't know if that's what you want. Other choice could be remove those hotels from the list
+
+> **Note on question 8 (fallback price display):**
+> I was unsure about the expected UI here. The back end correctly identifies fallback prices via `isCurrentSale: false`, and the field is typed and transported to the front end. However, I didn't have a clear picture of how this should look visually — should the entire card be greyed out? Just the price section? Should there be an explicit label? I went with a subtle opacity reduction on the price block and a small "Prix indicatif" label. Hope it's ok
 
 ---
 

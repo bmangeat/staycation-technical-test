@@ -9,7 +9,7 @@ const envSchema = z.object({
   DB_NAME: z.string().min(1),
   DB_PASSWORD: z.string().min(12),
   DB_HOST: z.string().min(1),
-  DB_PORT: z.coerce.number().int().min(1).max(65_535).default(3000),
+  DB_PORT: z.coerce.number().int().min(1).max(65_535).default(5432),
 });
 
 export interface Env {

@@ -12,6 +12,17 @@ const HotelList = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }, [page]);
 
+  if (isLoading) {
+    return (
+      <main className="container">
+        <section className="grid">
+          {Array.from({ length: SKELETON_COUNT }, (_, index) => (
+            <HotelCardSkeleton key={index} />
+          ))}
+        </section>
+      </main>
+    );
+  }
   if (isError || !data) {
     return (
       <main className="container text-center">
@@ -23,11 +34,11 @@ const HotelList = () => {
   return (
     <main className="container">
       <section className="grid">
-        {isLoading
-          ? Array.from({ length: SKELETON_COUNT }, (_, index) => <HotelCardSkeleton />)
-          : data.hotels.map((hotel) => <HotelCard key={hotel.id} hotel={hotel} />)}
+        {data.hotels.map((hotel) => (
+          <HotelCard key={hotel.id} hotel={hotel} />
+        ))}
       </section>
-      {!isLoading && (
+      {data.totalPages > 1 && (
         <nav className="pagination">
           <button
             className="pagination__button"

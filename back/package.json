@@ -14,8 +14,7 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "standard": "standard --fix"
+    "format:check": "prettier --check ."
   },
   "dependencies": {
     "@eslint/js": "^10.0.1",
@@ -37,7 +36,6 @@
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.6",
     "@types/node": "^26.6.6",
-    "standard": "^17.1.2",
     "tsx": "^4.23.15",
     "typescript": "^6.0.3"
   }

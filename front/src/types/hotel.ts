@@ -24,6 +24,6 @@ interface Price {
 }
 
 interface HotelStats {
-  averageScore: number | null;
+  averageScore: number;
   reviewCount: number;
 }
