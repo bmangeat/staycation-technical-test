@@ -15,12 +15,15 @@ function main(): void {
     process.exit(0);
   };
 
-  process.on('SIGTERM', () => {
+  const onSignal = () => {
     shutdown().catch((error: unknown) => {
-      logger.error(error);
+      logger.error(error, 'Error during shutdown');
       process.exit(1);
     });
-  });
+  };
+
+  process.on('SIGTERM', onSignal);
+  process.on('SIGINT', onSignal);
 }
 
 try {

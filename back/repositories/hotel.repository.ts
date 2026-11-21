@@ -20,7 +20,7 @@ export class HotelsRepository {
                 LIMIT $1 OFFSET $2`,
         [limit, offset],
       ),
-      DB.query<{ count: number }>('SELECT COUNT(id) FROM hotels'),
+      DB.query<{ count: number }>('SELECT COUNT(id)::int FROM hotels'),
     ]);
     return {
       rows: data.rows.map((r) => toHotelWithStats(r)),

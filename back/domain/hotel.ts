@@ -24,7 +24,7 @@ export interface HotelWithStats extends Hotel {
 }
 
 export interface HotelStats {
-  averageScore: number | null;
+  averageScore: number;
   reviewCount: number;
 }
 
@@ -41,6 +41,9 @@ export const toHotel = (row: DbHotelRow): Hotel => {
 export const toHotelWithStats = (row: HotelWithStatsRow): HotelWithStats => {
   if (!row.review_count || row.review_count === 0) {
     return toHotel(row);
+  }
+  if (row.average_score === null) {
+    throw new Error(`Has reviews but null average_score is null. Should not happen.`);
   }
   return {
     ...toHotel(row),

@@ -10,11 +10,3 @@ export interface BestPriceOpening {
   price: number;
   discountPrice: number;
 }
-
-export const toBestPriceOpening = (row: BestPriceOpeningRow): BestPriceOpening => {
-  return {
-    saleId: row.sale_id,
-    price: row.price,
-    discountPrice: row.discount_price,
-  };
-};

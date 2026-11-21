@@ -5,7 +5,7 @@ import { formatZodError } from '@/lib/zod';
 
 export const createErrorHandler =
   (logger: Logger): ErrorRequestHandler =>
-  (err, _req, res) => {
+  (err, _req, res, _next) => {
     if (err instanceof ZodError) {
       res.status(400).json({ message: formatZodError(err) });
       return;
