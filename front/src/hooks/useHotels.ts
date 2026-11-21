@@ -1,7 +1,7 @@
 import { useQuery } from 'react-query';
 import { apiFetch } from 'lib/api';
-import { GetHotelsResponse } from 'types/hotel';
-import { Pagination } from 'types/pagination';
+import type { GetHotelsResponse } from 'types/hotel';
+import type { Pagination } from 'types/pagination';
 
 async function fetchHotels({ page, size }: Pagination): Promise<GetHotelsResponse> {
   return apiFetch(`/hotels?page=${page}&size=${size}`);

@@ -16,9 +16,9 @@ const HotelList = () => {
     return (
       <main className="container">
         <section className="grid">
-          {Array.from({ length: SKELETON_COUNT }, (_, index) => (
-            <HotelCardSkeleton key={index} />
-          ))}
+          {Array.from({ length: SKELETON_COUNT }, (_, index) => {
+            return <HotelCardSkeleton key={index} />;
+          })}
         </section>
       </main>
     );
@@ -43,7 +43,9 @@ const HotelList = () => {
           <button
             className="pagination__button"
             disabled={page <= 1 || isFetching}
-            onClick={() => setPage((p) => p - 1)}
+            onClick={() => {
+              setPage((p) => p - 1);
+            }}
           >
             Précédent
           </button>
@@ -53,7 +55,9 @@ const HotelList = () => {
           <button
             className="pagination__button"
             disabled={page >= data.totalPages || isFetching}
-            onClick={() => setPage((p) => p + 1)}
+            onClick={() => {
+              setPage((p) => p + 1);
+            }}
           >
             Suivant
           </button>

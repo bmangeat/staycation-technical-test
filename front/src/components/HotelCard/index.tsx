@@ -1,11 +1,11 @@
 import React from 'react';
-import { HotelRow } from 'types/hotel';
+import type { HotelRow } from 'types/hotel';
 
 import 'styles/card.scss';
 
-type Props = {
+interface Props {
   hotel: HotelRow;
-};
+}
 
 const HotelCard = ({ hotel }: Props) => {
   const isUnavailable = !hotel.price;
@@ -30,8 +30,8 @@ const HotelCard = ({ hotel }: Props) => {
         <p className="card__subtitle">{hotel.preview}</p>
         {hotel.price ? (
           <div className="prices">
-            <strong>{hotel.price?.discountPrice}€</strong>
-            <del className="price-old">{hotel.price?.defaultPrice}€</del>
+            <strong>{hotel.price.discountPrice}€</strong>
+            <del className="price-old">{hotel.price.defaultPrice}€</del>
             <strong className="discount-badge">-{hotel.price.discountPercent}%</strong>
             {!hotel.price.isCurrentSale && (
               <span className="price-stale-label">Prix indicatif</span>
