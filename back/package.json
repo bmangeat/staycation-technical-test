@@ -14,7 +14,8 @@
     "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "format": "prettier --write .",
-    "format:check": "prettier --check ."
+    "format:check": "prettier --check .",
+    "ci:check": "pnpm format && pnpm typecheck && pnpm lint"
   },
   "dependencies": {
     "@eslint/js": "^10.0.1",
