@@ -5,6 +5,7 @@
 git clone git@github.com:bmangeat/staycation-technical-test.git
 # Create your .env from the example
 # Complete the env variables (DB_USER, DB_PASSWORD)
+# Look at the docker compose file ;)
 cp .env.example .env
 
 # Install dependencies
