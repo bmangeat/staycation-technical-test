@@ -1,6 +1,7 @@
 ## Quick Start 
 ```bash
 # Clone the repository
+git clone git@github.com:bmangeat/staycation-technical-test.git
 
 # Create your .env from the example
 # Change the env variables if necessary

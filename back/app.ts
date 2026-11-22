@@ -52,8 +52,6 @@ export function createApp(logger: Logger): Express {
     }),
   );
 
-  app.use(createErrorHandler(logger));
-
   // routing
   const userService = new UserService(new UserRepository());
   app.use('/users', createUsersRouter(userService));
@@ -64,6 +62,7 @@ export function createApp(logger: Logger): Express {
     new SaleDatesRepository(),
   );
   app.use('/hotels', createHotelRouter(hotelService));
+  app.use(createErrorHandler(logger));
 
   return app;
 }

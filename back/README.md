@@ -2,7 +2,7 @@
 
 ```bash
 # Clone the repository
-
+git clone git@github.com:bmangeat/staycation-technical-test.git
 # Create your .env from the example
 # Complete the env variables (DB_USER, DB_PASSWORD)
 cp .env.example .env
