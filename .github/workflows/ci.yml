@@ -32,11 +32,6 @@ jobs:
             back/pnpm-lock.yaml
             front/pnpm-lock.yaml
       - run: cd back && pnpm install --frozen-lockfile
-      - run: cd back && pnpm format
-      - run: cd back && pnpm lint
-      - run: cd back && pnpm typecheck
-      - run: cd back && pnpm build
+      - run: cd back && pnpm ci:check
       - run: cd front && pnpm install --frozen-lockfile
-      - run: cd front && pnpm format
-      - run: cd front && pnpm lint
-      - run: cd front && pnpm build
+      - run: cd front && pnpm ci:check
